@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import '../../components/button/button.js';
 import '../../components/input/input.js';
+import '../../components/header/header.js';
 
 import { Router } from '@vaadin/router';
 import styles from './home.styles.js';
@@ -49,6 +50,10 @@ export class Home extends LitElement {
 
   render() {
     return html`
+      <memory-header>
+        <span>Gone</span>
+        <span>Gone</span>
+      </memory-header>
       <main>
         <div class="logo"><span>1</span></div>
         <h1>${this.header}</h1>
