@@ -1,21 +1,11 @@
-import { LitElement, html, css } from 'lit';
+import { LitElement, html } from 'lit';
+import './components/button/button.js';
 
 class MemoryApp extends LitElement {
-  static properties = {
-  }
-
-  static styles = css`
-  `;
-
-  constructor() {
-    super();
-  }
+  static properties = {};
 
   render() {
-    return html`
-      <main>
-      </main>
-    `;
+    return html` <main></main> `;
   }
 }
 
