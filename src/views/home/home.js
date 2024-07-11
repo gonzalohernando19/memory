@@ -47,6 +47,12 @@ export class Home extends LitElement {
     });
   }
 
+  handleKeyDown(e) {
+    if (e.key === 'Enter') {
+      this.handleSavePlayer(e);
+    }
+  }
+
   render() {
     return html`
       <main>
@@ -56,6 +62,7 @@ export class Home extends LitElement {
           <memory-input
             placeholder="Player Name"
             @memory-input-change="${this.handleInputChange}"
+            @keydown="${this.handleKeyDown}"
           ></memory-input>
           ${this.error
             ? html`<div class="error">Please enter a valid name.</div>`
