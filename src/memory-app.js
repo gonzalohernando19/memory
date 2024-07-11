@@ -2,6 +2,7 @@ import { LitElement, html } from 'lit';
 import { Router } from '@vaadin/router';
 
 import './views/home/home.js';
+import './views/game/game.js';
 
 class Memory extends LitElement {
   firstUpdated() {
@@ -10,6 +11,7 @@ class Memory extends LitElement {
     const router = new Router(this.shadowRoot.querySelector('#outlet'));
     router.setRoutes([
       { path: '/', component: 'memory-home' },
+      { path: '/game', component: 'memory-game' },
       { path: '(.*)', redirect: '/' },
     ]);
   }

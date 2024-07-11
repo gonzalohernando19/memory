@@ -2,6 +2,8 @@ import { css } from 'lit';
 
 export default css`
   :host {
+    display: flex;
+    align-items: center;
     --home-font-family: var(--memory-font-display-default-family, sans-serif);
     --home-logo-background-color: var(--memory-primary-color, #061b2b);
     --home-logo-text-color: var(--memory-secondary-color, #ffffff);
@@ -40,6 +42,7 @@ export default css`
     gap: var(--home-main-gap);
     justify-content: flex-start;
     padding: var(--home-main-padding);
+    width: 50%;
   }
 
   h1 {
