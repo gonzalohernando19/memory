@@ -4,6 +4,7 @@ export default css`
   :host {
     display: flex;
     align-items: center;
+    justify-content: center;
     --home-font-family: var(--memory-font-display-default-family, sans-serif);
     --home-logo-background-color: var(--memory-primary-color, #061b2b);
     --home-logo-text-color: var(--memory-secondary-color, #ffffff);
