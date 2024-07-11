@@ -1,5 +1,4 @@
 import { LitElement, html } from 'lit';
-import './components/button/button.js';
 
 class MemoryApp extends LitElement {
   static properties = {};
