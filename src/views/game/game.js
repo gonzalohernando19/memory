@@ -114,10 +114,7 @@ export class Game extends LitElement {
   }
 
   saveScore() {
-    localStorage.setItem(
-      `${this.playerName}_normal_score`,
-      this.score.toString(),
-    );
+    localStorage.setItem(`${this.playerName}_score`, this.score.toString());
   }
 
   generateRandomNumbers() {
