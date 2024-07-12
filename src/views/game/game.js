@@ -5,6 +5,7 @@ import { LitElement, html } from 'lit';
 
 import '../../components/header/header.js';
 import '../../components/button/button.js';
+import '../../components/dropdown/dropdown.js';
 
 import styles from './game.styles.js';
 import { UserState } from '../../state/state.js';
@@ -26,8 +27,30 @@ export class Game extends LitElement {
      */
     instructions: { type: String },
 
+    /**
+     * The target number that the player needs to find.
+     */
     targetNumber: { type: Number },
+
+    /**
+     * Array of numbers that have been revealed during the game.
+     */
     revealedNumbers: { type: Array },
+
+    /**
+     * List of options to show in the dropdown.
+     */
+    options: { type: Array },
+
+    /**
+     * Currently selected option from the dropdown.
+     */
+    selected: { type: String },
+
+    /**
+     * Whether the dropdown menu is opened or closed.
+     */
+    isDropdownOpened: { type: Boolean },
   };
 
   static styles = [styles];
@@ -36,10 +59,11 @@ export class Game extends LitElement {
     super();
     this.playerName = UserState.user;
     this.score = parseInt(UserState.score, 10) || 0;
-    // parseInt(localStorage.getItem(`${this.playerName}_normal_score`), 10) ||
-    // 0;
     this.instructions = 'Click the play button to start a new game';
     this.revealedNumbers = [];
+    this.options = ['Easy', 'Medium', 'Hard'];
+    [this.selected] = this.options;
+    this.isDropdownOpened = false;
   }
 
   startGame() {
@@ -115,7 +139,6 @@ export class Game extends LitElement {
 
   saveScore() {
     UserState.setScore(this.score);
-    // localStorage.setItem(`${this.playerName}_score`, this.score.toString());
   }
 
   generateRandomNumbers() {
@@ -133,12 +156,19 @@ export class Game extends LitElement {
     return html`
       <memory-header>
         <span>Hi ${this.playerName}!</span>
+        <memory-dropdown
+          .options="${this.options}"
+          .selected="${this.selected}"
+          .opened="${this.isDropdownOpened}"
+          @option-change="${this.handleDropdownChange}"
+        ></memory-dropdown>
       </memory-header>
       <main>
         <div class="container">
           <div class="score">
             <span>Score: ${this.score}</span>
           </div>
+
           <h1>${this.instructions}</h1>
           <memory-button @memory-button-click="${this.startGame}"
             >Play</memory-button
