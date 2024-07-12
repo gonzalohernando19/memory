@@ -39,6 +39,16 @@ export class Game extends LitElement {
     revealedNumbers: { type: Array },
 
     /**
+     * Flag to indicate whether to show the buttons of the current round.
+     */
+    showButtons: { type: Boolean },
+
+    /**
+     * Flag to indicate whether to show the numbers or '?'.
+     */
+    showNumbers: { type: Boolean },
+
+    /**
      * List of options to show in the dropdown.
      */
     options: { type: Array },
@@ -52,6 +62,17 @@ export class Game extends LitElement {
      * Whether the dropdown menu is opened or closed.
      */
     isDropdownOpened: { type: Boolean },
+
+    /**
+     * Array of numbers that the player has selected in the current round.
+     */
+    selectedNumbers: { type: Array },
+
+    /**
+     * The timeout duration (in milliseconds) before the numbers are hidden.
+     * Default: '10000'.
+     */
+    hideTimeout: { type: Number },
   };
 
   static styles = [styles];
@@ -62,80 +83,93 @@ export class Game extends LitElement {
     this.score = parseInt(UserState.score, 10) || 0;
     this.instructions = 'Click the play button to start a new game';
     this.revealedNumbers = [];
+    this.showButtons = false;
+    this.showNumbers = true;
     this.options = ['Easy', 'Medium', 'Hard'];
     [this.selected] = this.options;
     this.isDropdownOpened = false;
+    this.selectedNumbers = [];
+    this.hideTimeout = 10000;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this.addEventListener('memory-button-click', this.startGame);
+    this.addEventListener('option-change', this.handleDropdownChange);
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    this.removeEventListener('memory-button-click', this.startGame);
+    this.removeEventListener('option-change', this.handleDropdownChange);
+  }
+
+  updated(changedProperties) {
+    if (changedProperties.has('score')) {
+      this.saveScore();
+    }
   }
 
   startGame() {
     this.instructions = 'Memorize the cards';
-
-    let gameButtonsContainer = this.shadowRoot.querySelector('.game-buttons');
-    if (!gameButtonsContainer) {
-      gameButtonsContainer = document.createElement('div');
-      gameButtonsContainer.classList.add('game-buttons');
-      this.shadowRoot
-        .querySelector('.container')
-        .insertBefore(
-          gameButtonsContainer,
-          this.shadowRoot.querySelector('memory-button'),
-        );
-    } else {
-      gameButtonsContainer.innerHTML = '';
-    }
+    this.showButtons = true;
+    this.showNumbers = true;
+    this.buttonsDisabled = true;
+    this.playDisabled = true;
+    this.dorpdownDisabled = true;
+    this.selectedNumbers = [];
+    this.clearButtonStates();
 
     const numbers = this.generateRandomNumbers();
     this.revealedNumbers = numbers;
-    numbers.forEach(number => {
-      const button = document.createElement('button');
-      button.textContent = number;
-      button.classList.add('number-button');
-      button.disabled = true;
-      button.addEventListener('click', () => this.playRound(number, button));
-      gameButtonsContainer.appendChild(button);
-    });
 
     setTimeout(() => {
       this.hideNumbers();
-    }, 10000);
+    }, this.hideTimeout);
+  }
+
+  clearButtonStates() {
+    const gameButtonsContainer = this.shadowRoot.querySelector('.game-buttons');
+    if (gameButtonsContainer) {
+      const buttons = gameButtonsContainer.querySelectorAll('.number-button');
+      buttons.forEach(btn => {
+        btn.classList.remove('win', 'lose');
+      });
+    }
   }
 
   hideNumbers() {
-    const gameButtonsContainer = this.shadowRoot.querySelector('.game-buttons');
-    const buttons = gameButtonsContainer.querySelectorAll('.number-button');
-    buttons.forEach(btn => {
-      btn.textContent = '?';
-      btn.disabled = false;
-    });
-
-    this.requestUpdate();
-
+    this.showNumbers = false;
+    this.buttonsDisabled = false;
     this.targetNumber =
       this.revealedNumbers[
         Math.floor(Math.random() * this.revealedNumbers.length)
       ];
     this.instructions = `Where is the number ${this.targetNumber}?`;
-    this.requestUpdate();
   }
 
-  playRound(choice, button) {
+  playRound(choice) {
+    this.selectedNumbers = [...this.selectedNumbers, choice];
     if (choice === this.targetNumber) {
       this.score += 10;
-      button.textContent = choice;
-      button.classList.add('win');
+      this.updateButtonState(choice, true);
     } else {
-      button.textContent = choice;
-      button.classList.add('lose');
+      this.updateButtonState(choice, false);
     }
+    this.saveScore();
+    this.playDisabled = false;
+    this.dorpdownDisabled = false;
+  }
 
+  updateButtonState(choice, isWin) {
     const gameButtonsContainer = this.shadowRoot.querySelector('.game-buttons');
     const buttons = gameButtonsContainer.querySelectorAll('.number-button');
     buttons.forEach(btn => {
+      if (parseInt(btn.dataset.number, 10) === choice) {
+        btn.classList.add(isWin ? 'win' : 'lose');
+      }
       btn.disabled = true;
     });
-
-    this.saveScore();
-    this.requestUpdate();
   }
 
   saveScore() {
@@ -153,30 +187,76 @@ export class Game extends LitElement {
     return numbers;
   }
 
+  handleDropdownChange(event) {
+    this.selected = event.detail.value;
+    this.isDropdownOpened = event.detail.opened;
+    switch (this.selected) {
+      case 'Easy':
+        this.hideTimeout = 10000;
+        break;
+      case 'Medium':
+        this.hideTimeout = 5000;
+        break;
+      case 'Hard':
+        this.hideTimeout = 2000;
+        break;
+      default:
+        this.hideTimeout = 10000;
+        break;
+    }
+  }
+
   render() {
     return html`
       <memory-header>
-        <span
-          ><memory-icon size="SM" name="user" color="white"></memory-icon>
-          ${this.playerName}</span
-        >
-        <memory-dropdown
-          .options="${this.options}"
-          .selected="${this.selected}"
-          .opened="${this.isDropdownOpened}"
-          @option-change="${this.handleDropdownChange}"
-        ></memory-dropdown>
+        <span>
+          <memory-icon size="SM" name="user" color="white"></memory-icon>
+          ${this.playerName}
+        </span>
+        <div class="difficulty">
+          <span>Dificulty</span>
+          <memory-dropdown
+            .options="${this.options}"
+            .selected="${this.selected}"
+            .opened="${this.isDropdownOpened}"
+            @option-change="${this.handleDropdownChange}"
+            ?disabled="${this.dorpdownDisabled}"
+          ></memory-dropdown>
+        </div>
       </memory-header>
       <main>
         <div class="container">
           <div class="score">
             <span>Score: ${this.score}</span>
           </div>
-
           <h1>${this.instructions}</h1>
-          <memory-button @memory-button-click="${this.startGame}"
-            >Play</memory-button
+          ${this.showButtons
+            ? html`
+                <div class="game-buttons">
+                  ${this.revealedNumbers.map(
+                    number => html`
+                      <button
+                        class="number-button"
+                        data-number="${number}"
+                        @click=${() => this.playRound(number)}
+                        ?disabled=${this.buttonsDisabled}
+                      >
+                        ${this.showNumbers ||
+                        this.selectedNumbers.includes(number)
+                          ? number
+                          : '?'}
+                      </button>
+                    `,
+                  )}
+                </div>
+              `
+            : ''}
+          <memory-button
+            @memory-button-click="${this.startGame}"
+            ?disabled="${this.playDisabled}"
           >
+            Play
+          </memory-button>
         </div>
       </main>
     `;

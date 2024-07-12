@@ -32,6 +32,11 @@ export default css`
     position: relative;
   }
 
+  .dropdown.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
   .dropdown-toggle {
     align-items: center;
     background-color: transparent;
