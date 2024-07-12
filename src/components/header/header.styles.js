@@ -11,13 +11,13 @@ export default css`
   }
 
   div {
+    box-sizing: border-box;
     align-items: center;
     background-color: var(--header-background-color);
     color: var(--header-text-color);
     display: flex;
     font-family: var(--header-font-family);
     font-size: var(--header-font-size);
-    height: 5vh;
     justify-content: space-between;
     line-height: var(--header-line-height);
     padding: var(--header-padding);
