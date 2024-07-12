@@ -7,6 +7,7 @@ import '../../components/header/header.js';
 import '../../components/button/button.js';
 
 import styles from './game.styles.js';
+import { UserState } from '../../state/state.js';
 
 export class Game extends LitElement {
   static properties = {
@@ -33,17 +34,16 @@ export class Game extends LitElement {
 
   constructor() {
     super();
-    this.playerName = localStorage.getItem('playerName') || 'Player';
-    this.score =
-      parseInt(localStorage.getItem(`${this.playerName}_normal_score`), 10) ||
-      0;
+    this.playerName = UserState.user;
+    this.score = parseInt(UserState.score, 10) || 0;
+    // parseInt(localStorage.getItem(`${this.playerName}_normal_score`), 10) ||
+    // 0;
     this.instructions = 'Click the play button to start a new game';
     this.revealedNumbers = [];
   }
 
   startGame() {
     this.instructions = 'Memorize the cards';
-    this.requestUpdate();
 
     let gameButtonsContainer = this.shadowRoot.querySelector('.game-buttons');
     if (!gameButtonsContainer) {
@@ -114,7 +114,8 @@ export class Game extends LitElement {
   }
 
   saveScore() {
-    localStorage.setItem(`${this.playerName}_score`, this.score.toString());
+    UserState.setScore(this.score);
+    // localStorage.setItem(`${this.playerName}_score`, this.score.toString());
   }
 
   generateRandomNumbers() {
