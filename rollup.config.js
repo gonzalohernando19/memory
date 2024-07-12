@@ -4,6 +4,7 @@ import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 import esbuild from 'rollup-plugin-esbuild';
 import { generateSW } from 'rollup-plugin-workbox';
+import copy from 'rollup-plugin-copy';
 import path from 'path';
 
 export default {
@@ -57,15 +58,15 @@ export default {
     generateSW({
       globIgnores: ['polyfills/*.js', 'nomodule-*.js'],
       navigateFallback: '/index.html',
-      // where to output the generated sw
       swDest: path.join('public', 'sw.js'),
-      // directory to match patterns against to be precached
       globDirectory: path.join('public'),
-      // cache any html js and css by default
       globPatterns: ['**/*.{html,js,css,webmanifest}'],
       skipWaiting: true,
       clientsClaim: true,
       runtimeCaching: [{ urlPattern: 'polyfills/*.js', handler: 'CacheFirst' }],
+    }),
+    copy({
+      targets: [{ src: 'assets', dest: 'public' }],
     }),
   ],
 };
