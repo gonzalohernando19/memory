@@ -16,6 +16,7 @@ export default css`
     --memory-font-display-md-line-height: 1.75rem;
     --memory-font-display-lg-line-height: 2rem;
     --memory-font-display-xl-line-height: 2.5rem;
+    --memory-size-spacing-xxs: 0.25rem;
     --memory-size-spacing-xs: 0.5rem;
     --memory-size-spacing-sm: 0.75rem;
     --memory-size-spacing-md: 1.25rem;

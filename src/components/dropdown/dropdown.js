@@ -18,6 +18,11 @@ export class Dropdown extends LitElement {
      * Whether the dropdown menu is opened or closed.
      */
     opened: { type: Boolean },
+
+    /**
+     * Whether the dropdown is disabled or not.
+     */
+    disabled: { type: Boolean },
   };
 
   constructor() {
@@ -25,13 +30,15 @@ export class Dropdown extends LitElement {
     this.options = [];
     this.selected = '';
     this.opened = false;
+    this.disabled = false;
   }
 
   static styles = [styles];
 
   toggleDropdown() {
-    this.opened = !this.opened;
-    this.requestUpdate();
+    if (!this.disabled) {
+      this.opened = !this.opened;
+    }
   }
 
   selectOption(option) {
@@ -39,7 +46,9 @@ export class Dropdown extends LitElement {
     this.opened = false;
     this.dispatchEvent(
       new CustomEvent('option-change', {
-        detail: { selected: this.selected },
+        detail: { value: this.selected },
+        bubbles: true,
+        composed: true,
       }),
     );
   }
@@ -52,7 +61,7 @@ export class Dropdown extends LitElement {
 
   render() {
     return html`
-      <div class="dropdown">
+      <div class="dropdown ${this.disabled ? 'disabled' : ''}">
         <div
           class="dropdown-toggle"
           @click="${this.toggleDropdown}"

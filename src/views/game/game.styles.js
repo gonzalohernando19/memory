@@ -4,6 +4,12 @@ export default css`
   :host {
     width: 100%;
     font-family: var(--home-font-family);
+    --game-dificult-font-size: var(--memory-font-display-sm-size, 1rem);
+    --game-dificult-line-height: var(
+      --memory-font-display-sm-line-height,
+      1.5rem
+    );
+    --game-dificult-gap: var(--memory-size-spacing-lg, 1.5rem);
     --game-main-padding: var(--memory-size-spacing-md, 1.25rem);
     --game-container-gap: var(--memory-size-spacing-md, 1.25rem);
     --game-font-family: var(--memory-font-display-default-family, sans-serif);
@@ -11,6 +17,7 @@ export default css`
     --game-h1-line-height: var(--memory-font-display-md-line-height, 1.75rem);
     --game-score-font-size: var(--memory-font-display-lg-size, 1.75rem);
     --game-score-line-height: var(--memory-font-display-lg-line-height, 2rem);
+    --game-score-padding: var(--memory-size-spacing-xxs, 0.25rem);
     --game-buttons-gap: var(--memory-size-spacing-sm, 1rem);
     --game-buttons-padding: var(--memory-size-spacing-lg, 1.5rem);
     --game-number-button-font-size: var(--memory-font-display-xl-size, 2.5rem);
@@ -40,6 +47,14 @@ export default css`
     --game-number-button-lose-border-color: var(--memory-error-color, #cb0000);
   }
 
+  .difficulty {
+    display: flex;
+    align-items: center;
+    font-size: var(--game-dificult-font-size);
+    line-height: var(--game-dificult-line-height);
+    gap: var(--game-dificult-gap);
+  }
+
   main {
     align-items: center;
     display: flex;
@@ -65,6 +80,7 @@ export default css`
     font-size: var(--game-score-font-size);
     line-height: var(--game-score-line-height);
     text-align: right;
+    padding-right: var(--game-score-padding);
   }
 
   memory-button {
