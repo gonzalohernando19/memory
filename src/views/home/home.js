@@ -1,6 +1,7 @@
 import { LitElement, html } from 'lit';
 import '../../components/button/button.js';
 import '../../components/input/input.js';
+import '../../components/icon/icon.js';
 
 import { Router } from '@vaadin/router';
 import { UserState } from '../../state/state.js';
@@ -57,7 +58,9 @@ export class Home extends LitElement {
   render() {
     return html`
       <main>
-        <div class="logo"><span>1</span></div>
+        <div class="logo">
+          <memory-icon size="SM" name="user" color="white"></memory-icon>
+        </div>
         <h1>${this.header}</h1>
         <div class="container">
           <memory-input
