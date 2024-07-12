@@ -3,6 +3,7 @@ import '../../components/button/button.js';
 import '../../components/input/input.js';
 
 import { Router } from '@vaadin/router';
+import { UserState } from '../../state/state.js';
 import styles from './home.styles.js';
 
 export class Home extends LitElement {
@@ -41,7 +42,7 @@ export class Home extends LitElement {
       this.error = true;
       return;
     }
-    localStorage.setItem('playerName', this.playerName);
+    UserState.setUser(this.playerName);
     Router.go({
       pathname: '/game',
     });
