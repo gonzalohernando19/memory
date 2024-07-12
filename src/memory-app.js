@@ -11,7 +11,6 @@ class Memory extends LitElement {
 
   firstUpdated() {
     super.firstUpdated();
-    // const router = new Router(this.shadowRoot.querySelector('#outlet'), { baseDir: '/rock-paper-scissors' });
     const router = new Router(this.shadowRoot.querySelector('#outlet'));
     router.setRoutes([
       { path: '/', component: 'memory-home' },

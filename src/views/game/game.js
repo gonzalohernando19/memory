@@ -5,6 +5,7 @@ import { LitElement, html } from 'lit';
 
 import '../../components/header/header.js';
 import '../../components/button/button.js';
+import '../../components/icon/icon.js';
 import '../../components/dropdown/dropdown.js';
 
 import styles from './game.styles.js';
@@ -155,7 +156,10 @@ export class Game extends LitElement {
   render() {
     return html`
       <memory-header>
-        <span>Hi ${this.playerName}!</span>
+        <span
+          ><memory-icon size="SM" name="user" color="white"></memory-icon>
+          ${this.playerName}</span
+        >
         <memory-dropdown
           .options="${this.options}"
           .selected="${this.selected}"

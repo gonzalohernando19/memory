@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { fixture, expect } from '@open-wc/testing';
 import sinon from 'sinon';
-import '../src/views/home/home.js'; // Ajusta la ruta según la ubicación real de tu vista Home
+import '../src/views/home/home.js';
 
 describe('Home view', () => {
   let home;
@@ -19,17 +19,14 @@ describe('Home view', () => {
   it('updates playerName on memory-input-change event', async () => {
     const inputElement = home.shadowRoot.querySelector('memory-input');
 
-    // Simula el evento memory-input-change
     inputElement.dispatchEvent(
       new CustomEvent('memory-input-change', {
         detail: { value: 'Test Player' },
       }),
     );
 
-    // Espera a que se actualice el componente
     await home.updateComplete;
 
-    // Verifica que playerName se haya actualizado correctamente
     expect(home.playerName).to.equal('Test Player');
     expect(home.error).to.be.false;
   });

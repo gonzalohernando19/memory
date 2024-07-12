@@ -1,7 +1,7 @@
 import { html } from 'lit';
 import { fixture, expect } from '@open-wc/testing';
 import sinon from 'sinon';
-import '../src/components/input/input.js'; // Ajusta la ruta según la ubicación real de tu componente Input
+import '../src/components/input/input.js';
 
 describe('Input component', () => {
   let input;
