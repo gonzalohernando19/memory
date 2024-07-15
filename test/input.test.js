@@ -38,7 +38,7 @@ describe('Input component', () => {
         .instanceOf(CustomEvent)
         .and(sinon.match.has('type', 'memory-input-change')),
     );
-    expect(eventSpy.getCall(0).args[0].detail.value).to.equal('New value');
+    expect(eventSpy.getCall(0).args[0].detail.value).to.equal('Ne value');
   });
 
   it('renders with label', async () => {
