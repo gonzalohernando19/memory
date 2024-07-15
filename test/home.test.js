@@ -1,5 +1,5 @@
 import { html } from 'lit';
-import { fixture, expect } from '@open-wc/testing';
+import { fixture, expect, oneEvent } from '@open-wc/testing';
 import sinon from 'sinon';
 import '../src/views/home/home.js';
 
@@ -18,14 +18,15 @@ describe('Home view', () => {
 
   it('updates playerName on memory-input-change event', async () => {
     const inputElement = home.shadowRoot.querySelector('memory-input');
-
     inputElement.dispatchEvent(
       new CustomEvent('memory-input-change', {
         detail: { value: 'Test Player' },
+        bubbles: true,
+        composed: true,
       }),
     );
 
-    await home.updateComplete;
+    await oneEvent(inputElement, 'memory-input-change');
 
     expect(home.playerName).to.equal('Test Player');
     expect(home.error).to.be.false;
