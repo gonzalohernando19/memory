@@ -14,9 +14,6 @@ export default css`
     --home-main-gap: var(--memory-size-spacing-md, 1.25rem);
     --home-main-padding: var(--memory-size-spacing-md, 1.25rem);
     --home-container-gap: var(--memory-size-spacing-md, 1.25rem);
-    --home-h1-font-size: var(--memory-font-display-lg-size, 1.75rem);
-    --home-h1-line-height: var(--memory-font-display-lg-line-height, 2rem);
-    --home-h1-text-color: var(--memory-primary-color, #061b2b);
     --home-error-font-size: var(--memory-font-display-sm-size, 1rem);
     --home-error-line-height: var(--memory-font-display-sm-line-height, 1.5rem);
     --home-error-text-color: var(--memory-error-color, #cb0000);
@@ -43,7 +40,7 @@ export default css`
     gap: var(--home-main-gap);
     justify-content: flex-start;
     padding: var(--home-main-padding);
-    width: 50%;
+    width: 238px;
   }
 
   h1 {
@@ -51,13 +48,6 @@ export default css`
     font-size: var(--home-h1-font-size);
     line-height: var(--home-h1-line-height);
     margin: 0;
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
-    gap: var(--home-container-gap);
-    width: 238px;
   }
 
   .error {

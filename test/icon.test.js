@@ -3,29 +3,31 @@ import { fixture, expect } from '@open-wc/testing';
 import '../src/components/icon/icon.js';
 
 describe('Icon component', () => {
-  let icon;
+  let el;
 
   beforeEach(async () => {
-    icon = await fixture(
-      html`<memory-icon size="SM" name="exit"></memory-icon>`,
-    );
+    el = await fixture(html`<memory-icon size="SM" name="exit"></memory-icon>`);
   });
 
   it('renders icon component', async () => {
-    await icon.updateComplete;
-    const iconDiv = icon.shadowRoot.querySelector('#icon');
+    await el.updateComplete;
+    const iconDiv = el.shadowRoot.querySelector('#icon');
     expect(iconDiv).to.exist;
   });
 
   it('sets the default color if not provided', async () => {
-    await icon.updateComplete;
-    expect(icon.color).to.equal('#061B2B');
+    await el.updateComplete;
+    expect(el.color).to.equal('#061B2B');
   });
 
   it('shows an error if the icon name is empty', async () => {
-    icon = await fixture(html`<memory-icon></memory-icon>`);
-    await icon.updateComplete;
+    el = await fixture(html`<memory-icon></memory-icon>`);
+    await el.updateComplete;
 
-    expect(icon.error).to.be.true;
+    expect(el.error).to.be.true;
+  });
+
+  it('passes the a11y audit', async () => {
+    await expect(el).shadowDom.to.be.accessible();
   });
 });

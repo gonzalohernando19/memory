@@ -4,23 +4,24 @@ import sinon from 'sinon';
 import '../src/components/button/button.js';
 
 describe('Button component', () => {
-  let button;
+  let el;
 
   beforeEach(async () => {
-    button = await fixture(html` <memory-button>Click me</memory-button> `);
+    el = await fixture(html` <memory-button>Click me</memory-button> `);
   });
 
   it('renders content from slot', async () => {
-    await button.updateComplete;
-    const buttonElement = button.shadowRoot.querySelector('button');
-    console.log(buttonElement);
-    expect(buttonElement.textContent.trim()).to.equal('Click me');
+    const slotContent = el.shadowRoot
+      .querySelector('slot')
+      .assignedNodes()[0]
+      .textContent.trim();
+    expect(slotContent).to.equal('Click me');
   });
 
   it('fires a "memory-button-click" event when clicked', () => {
-    const eventSpy = sinon.stub(button, 'dispatchEvent');
+    const eventSpy = sinon.stub(el, 'dispatchEvent');
 
-    button.shadowRoot.querySelector('button').click();
+    el.shadowRoot.querySelector('button').click();
 
     expect(eventSpy).to.have.been.calledOnce;
     expect(eventSpy).to.have.been.calledWithMatch(
@@ -33,10 +34,14 @@ describe('Button component', () => {
   });
 
   it('renders with disabled attribute when disabled property is true', async () => {
-    button.disabled = true;
-    await button.updateComplete;
+    el.disabled = true;
+    await el.updateComplete;
 
-    const buttonElement = button.shadowRoot.querySelector('button');
+    const buttonElement = el.shadowRoot.querySelector('button');
     expect(buttonElement.hasAttribute('disabled')).to.be.true;
+  });
+
+  it('passes the a11y audit', async () => {
+    await expect(el).shadowDom.to.be.accessible();
   });
 });
