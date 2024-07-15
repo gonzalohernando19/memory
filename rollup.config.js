@@ -1,12 +1,14 @@
+import { defineConfig } from 'rollup';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import babel from '@rollup/plugin-babel';
 import { rollupPluginHTML as html } from '@web/rollup-plugin-html';
 import { importMetaAssets } from '@web/rollup-plugin-import-meta-assets';
 import esbuild from 'rollup-plugin-esbuild';
 import { generateSW } from 'rollup-plugin-workbox';
+import copy from 'rollup-plugin-copy';
 import path from 'path';
 
-export default {
+export default defineConfig({
   input: 'index.html',
   output: {
     entryFileNames: '[hash].js',
@@ -22,7 +24,7 @@ export default {
     html({
       minify: true,
       injectServiceWorker: true,
-      serviceWorkerPath: 'public/sw.js',
+      serviceWorkerPath: '/sw.js',
     }),
     /** Resolve bare module imports */
     nodeResolve(),
@@ -56,16 +58,16 @@ export default {
     /** Create and inject a service worker */
     generateSW({
       globIgnores: ['polyfills/*.js', 'nomodule-*.js'],
-      navigateFallback: '/index.html',
-      // where to output the generated sw
+      navigateFallback: 'index.html',
       swDest: path.join('public', 'sw.js'),
-      // directory to match patterns against to be precached
       globDirectory: path.join('public'),
-      // cache any html js and css by default
       globPatterns: ['**/*.{html,js,css,webmanifest}'],
       skipWaiting: true,
       clientsClaim: true,
       runtimeCaching: [{ urlPattern: 'polyfills/*.js', handler: 'CacheFirst' }],
     }),
+    copy({
+      targets: [{ src: 'assets', dest: 'public' }],
+    }),
   ],
-};
+});

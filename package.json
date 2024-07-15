@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "@vaadin/router": "^1.7.5",
-    "lit": "^3.1.4"
+    "lit": "^3.1.4",
+    "rollup-plugin-copy": "^3.5.0"
   },
   "devDependencies": {
     "@babel/plugin-syntax-import-assertions": "^7.24.7",
