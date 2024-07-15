@@ -61,7 +61,7 @@ export default defineConfig({
       navigateFallback: 'index.html',
       swDest: path.join('public', 'sw.js'),
       globDirectory: path.join('public'),
-      globPatterns: ['**/*.{html,js,css,webmanifest}'],
+      globPatterns: ['**/*.{html,js,css,webmanifest,svg}'],
       skipWaiting: true,
       clientsClaim: true,
       runtimeCaching: [{ urlPattern: 'polyfills/*.js', handler: 'CacheFirst' }],
