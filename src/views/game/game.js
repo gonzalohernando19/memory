@@ -106,7 +106,7 @@ export class Game extends LitElement {
     this.isPlaying = true;
     this.revealedNumbers = this.generateRandomNumbers();
     this.hideTimeout = LEVELS[this.selected].time;
-    this.scoreToSum = LEVELS[this.selected].time;
+    this.scoreToSum = LEVELS[this.selected].score;
 
     setTimeout(() => {
       this.hideNumbers();
