@@ -18,6 +18,20 @@ export class Input extends LitElement {
       type: String,
       reflect: true,
     },
+
+    /**
+     * The label for the input field.
+     */
+    label: {
+      type: String,
+    },
+
+    /**
+     * Whether the input field has an invalid value.
+     */
+    invalid: {
+      type: Boolean,
+    },
   };
 
   static styles = [styles];
@@ -26,6 +40,9 @@ export class Input extends LitElement {
     super();
     this.placeholder = '';
     this.value = '';
+    this.label = '';
+    this.required = false;
+    this.invalid = false;
   }
 
   onInputChange(e) {
@@ -42,12 +59,17 @@ export class Input extends LitElement {
 
   render() {
     return html`
-      <input
-        type="text"
-        placeholder="${this.placeholder}"
-        .value="${this.value}"
-        @input=${this.onInputChange}
-      />
+      <label>
+        ${this.label}
+        <input
+          type="text"
+          placeholder="${this.placeholder}"
+          .value="${this.value}"
+          @input=${this.onInputChange}
+          aria-label="${this.label}"
+          aria-invalid="${this.invalid ? 'true' : 'false'}"
+        />
+      </label>
     `;
   }
 }

@@ -1,6 +1,4 @@
-/* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
-
 import { LitElement, html } from 'lit';
 
 import '../../components/header/header.js';
@@ -135,14 +133,13 @@ export class Game extends LitElement {
   }
 
   generateRandomNumbers() {
-    const numbers = [];
-    while (numbers.length < 9) {
+    const numbers = new Set();
+
+    while (numbers.size < 9) {
       const randomNumber = Math.floor(Math.random() * 9) + 1;
-      if (!numbers.includes(randomNumber)) {
-        numbers.push(randomNumber);
-      }
+      numbers.add(randomNumber);
     }
-    return numbers;
+    return [...numbers];
   }
 
   handleDropdownChange(event) {
@@ -210,18 +207,16 @@ export class Game extends LitElement {
     return html`
       ${this.renderHeader()}
       <main>
-        <div class="container">
-          <div class="score">
-            <span>Score: ${this.score}</span>
-          </div>
-          ${this.getMessage()} ${this.renderButtons()}
-          <memory-button
-            @memory-button-click="${this.startGame}"
-            ?disabled="${this.isPlaying}"
-          >
-            Play
-          </memory-button>
+        <div class="score">
+          <span>Score: ${this.score}</span>
         </div>
+        ${this.getMessage()} ${this.renderButtons()}
+        <memory-button
+          @memory-button-click="${this.startGame}"
+          ?disabled="${this.isPlaying}"
+        >
+          Play
+        </memory-button>
       </main>
     `;
   }

@@ -4,12 +4,12 @@ import { fixture, expect } from '@open-wc/testing';
 import '../src/memory-app.js';
 
 describe('MemoryApp', () => {
-  let element;
+  let el;
   beforeEach(async () => {
-    element = await fixture(html`<memory-app></memory-app>`);
+    el = await fixture(html`<memory-app></memory-app>`);
   });
 
   it('passes the a11y audit', async () => {
-    await expect(element).shadowDom.to.be.accessible();
+    await expect(el).shadowDom.to.be.accessible();
   });
 });

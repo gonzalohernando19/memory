@@ -2,6 +2,7 @@ import { css } from 'lit';
 
 export default css`
   :host {
+    width: 100%;
     --header-background-color: var(--memory-primary-color, #061b2b);
     --header-text-color: var(--memory-secondary-color, #ffffff);
     --header-font-family: var(--memory-font-display-default-family, sans-serif);
@@ -21,6 +22,5 @@ export default css`
     justify-content: space-between;
     line-height: var(--header-line-height);
     padding: var(--header-padding);
-    width: 100%;
   }
 `;

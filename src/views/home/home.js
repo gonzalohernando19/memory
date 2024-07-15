@@ -10,10 +10,6 @@ import styles from './home.styles.js';
 export class Home extends LitElement {
   static properties = {
     /**
-     * Header of the app
-     */
-    header: { type: String },
-    /**
      * Name of the player
      */
     playerName: { type: String },
@@ -61,20 +57,20 @@ export class Home extends LitElement {
         <div class="logo">
           <memory-icon size="SM" name="user" color="white"></memory-icon>
         </div>
-        <h1>${this.header}</h1>
-        <div class="container">
-          <memory-input
-            placeholder="Player Name"
-            @memory-input-change="${this.handleInputChange}"
-            @keydown="${this.handleKeyDown}"
-          ></memory-input>
-          ${this.error
-            ? html`<div class="error">Please enter a valid name.</div>`
-            : ''}
-          <memory-button @memory-button-click="${this.handleSavePlayer}"
-            >Play</memory-button
-          >
-        </div>
+        <memory-input
+          label="Create new player"
+          placeholder="Player Name"
+          .value="${this.playerName}"
+          .invalid=${this.error}
+          @memory-input-change="${this.handleInputChange}"
+          @keydown="${this.handleKeyDown}"
+        ></memory-input>
+        ${this.error
+          ? html`<div class="error">Please enter a valid name.</div>`
+          : ''}
+        <memory-button @memory-button-click="${this.handleSavePlayer}"
+          >Play</memory-button
+        >
       </main>
     `;
   }

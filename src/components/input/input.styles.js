@@ -16,6 +16,17 @@ export default css`
     --input-font-size: var(--memory-font-display-sm-size, 1rem);
     --input-line-height: var(--memory-font-display-sm-line-height, 1.5rem);
     --input-padding: var(--memory-size-spacing-sm, 0.75rem);
+    --input-margin-top: var(--memory-size-spacing-sm, 0.75rem);
+    --input-label-color: var(--memory-primary-color, #061b2b);
+    --input-label-font-family: var(
+      --memory-font-display-default-family,
+      sans-serif
+    );
+    --input-label-font-size: var(--memory-font-display-md-size, 1.25rem);
+    --input-label-line-height: var(
+      --memory-font-display-md-line-height,
+      1.75rem
+    );
   }
 
   input {
@@ -28,11 +39,21 @@ export default css`
     font-family: var(--input-font-family);
     font-size: var(--input-font-size);
     line-height: var(--input-line-height);
+    margin-top: var(--input-margin-top);
     min-width: 238px;
     padding: var(--input-padding);
   }
 
   input:focus {
     outline: none !important;
+  }
+
+  label {
+    color: var(--input-label-color);
+    font-family: var(--input-label-font-family);
+    font-size: var(--input-label-font-size);
+    font-weight: bold;
+    line-height: var(--input-label-line-height);
+    text-align: center;
   }
 `;

@@ -2,6 +2,9 @@ import { css } from 'lit';
 
 export default css`
   :host {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     width: 100%;
     font-family: var(--home-font-family);
     --game-dificult-font-size: var(--memory-font-display-sm-size, 1rem);
@@ -11,7 +14,7 @@ export default css`
     );
     --game-dificult-gap: var(--memory-size-spacing-lg, 1.5rem);
     --game-main-padding: var(--memory-size-spacing-md, 1.25rem);
-    --game-container-gap: var(--memory-size-spacing-md, 1.25rem);
+    --game-main-gap: var(--memory-size-spacing-md, 1.25rem);
     --game-font-family: var(--memory-font-display-default-family, sans-serif);
     --game-h1-font-size: var(--memory-font-display-md-size, 1.25rem);
     --game-h1-line-height: var(--memory-font-display-md-line-height, 1.75rem);
@@ -19,7 +22,6 @@ export default css`
     --game-score-line-height: var(--memory-font-display-lg-line-height, 2rem);
     --game-score-padding: var(--memory-size-spacing-xxs, 0.25rem);
     --game-buttons-gap: var(--memory-size-spacing-sm, 1rem);
-    --game-buttons-padding: var(--memory-size-spacing-lg, 1.5rem);
     --game-number-button-font-size: var(--memory-font-display-xl-size, 2.5rem);
     --game-number-button-line-height: var(
       --memory-font-display-xl-line-height,
@@ -60,13 +62,8 @@ export default css`
     display: flex;
     flex-direction: column;
     padding: var(--game-main-padding);
-  }
-
-  .container {
-    display: flex;
-    flex-direction: column;
     width: 390px;
-    gap: var(--game-container-gap);
+    gap: var(--game-main-gap);
   }
 
   h1 {
@@ -93,7 +90,6 @@ export default css`
     grid-template-columns: repeat(3, 3fr);
     gap: var(--game-buttons-gap);
     justify-items: center;
-    padding: var(--game-buttons-padding);
   }
 
   .number-button {
