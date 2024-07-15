@@ -13,6 +13,7 @@ describe('Button component', () => {
   it('renders content from slot', async () => {
     await button.updateComplete;
     const buttonElement = button.shadowRoot.querySelector('button');
+    console.log(buttonElement);
     expect(buttonElement.textContent.trim()).to.equal('Click me');
   });
 

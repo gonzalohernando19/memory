@@ -59,6 +59,12 @@ export class Dropdown extends LitElement {
     }
   }
 
+  updated(changedProperties) {
+    if (changedProperties.has('disabled') && this.opened && this.disabled) {
+      this.opened = false;
+    }
+  }
+
   render() {
     return html`
       <div class="dropdown ${this.disabled ? 'disabled' : ''}">
