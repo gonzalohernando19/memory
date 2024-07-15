@@ -19,7 +19,7 @@ To get started with the Memory game:
 
     ```bash
     git clone https://github.com/gonzalohernando19/memory.git
-    cd lit-rock-paper-scissors
+    cd memory-app
     ```
 
 2. **Install dependencies:**
