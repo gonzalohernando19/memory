@@ -59,6 +59,42 @@ describe('Dropdown Component', () => {
     expect(el.opened).to.be.false;
   });
 
+  it('toggles dropdown on Enter key press', async () => {
+    el.opened = false;
+    await el.updateComplete;
+
+    const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+    el.shadowRoot.querySelector('.dropdown-toggle').dispatchEvent(enterEvent);
+    await el.updateComplete;
+
+    expect(el.opened).to.be.true;
+
+    el.shadowRoot.querySelector('.dropdown-toggle').dispatchEvent(enterEvent);
+    await el.updateComplete;
+    expect(el.opened).to.be.false;
+  });
+
+  it('closes dropdown when disabled', async () => {
+    el.opened = true;
+    el.disabled = true;
+
+    el.requestUpdate();
+    await el.updateComplete;
+
+    expect(el.opened).to.be.false;
+  });
+
+  it('does not toggle dropdown when disabled', async () => {
+    el.disabled = true;
+    await el.updateComplete;
+
+    const enterEvent = new KeyboardEvent('keydown', { key: 'Enter' });
+    el.shadowRoot.querySelector('.dropdown-toggle').dispatchEvent(enterEvent);
+    await el.updateComplete;
+
+    expect(el.opened).to.be.false;
+  });
+
   it('passes the a11y audit', async () => {
     await expect(el).shadowDom.to.be.accessible();
   });
