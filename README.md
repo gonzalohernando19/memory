@@ -27,11 +27,11 @@ El Juego de **Memory Cards** es un juego interactivo diseñado para probar y mej
 
 # Decisiones específicas
 
-- **Manejo de datos**
+- **Manejo de datos:**
    `UserState` se emplea para almacenar y recuperar datos como el nombre del jugador y la puntuación en diferentes sesiones de juego.
    Esto asegura que los datos importantes del jugador persistan incluso cuando se actualiza el juego o se navega fuera de él, proporcionando una experiencia de usuario continua.
 
-- **Flujo del juego**
+- **Flujo del juego:**
    Las mecánicas centrales del juego giran en torno a revelar y memorizar números. Así es como hemos realizado estas acciones:
 
   + **Inicio y reinicio del juego:**
