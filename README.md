@@ -1,93 +1,101 @@
-# Memory Game
+# Memory Cards
 
-Memory Game is an interactive game designed to test and improve your visual memory. In this game, you are shown numbers from 1 to 9, which are then hidden. You must select the number requested within a certain time limit. With an attractive design and adjustable difficulty levels, Memory Game offers fun and a mental challenge for people of all ages.
+El Juego de **Memory Cards** es un juego interactivo diseñado para probar y mejorar tu memoria visual. En este juego, se te muestran números del 1 al 9, los cuales luego se ocultan. Debes seleccionar el número solicitado dentro de un límite de tiempo determinado. Con un diseño atractivo y niveles de dificultad ajustables, Memory Cards ofrece diversión y un desafío mental.
 
-# Features
-- Intuitive Interface: A clean and easy-to-navigate user interface.
-- Difficulty Levels: Three difficulty levels to suit players of all ages and skills:
- + Easy: 10 seconds to remember and choose the number.
- + Medium: 5 seconds to remember and choose the number.
- + Hard: 2 seconds to remember and choose the number.
-- Scoring System: A scoring system that allows players to track their performance and compete with friends.
 
-# Tech
-- I have used lit-element for creating web components, as it is a library that simplifies web component creation.
-- Husky has been used to run prettier and the linter before commit and tests before a push to prevent pushing failed tests and maintain code quality.
-- I have used Web Test Runner for the test. Using Web Test Runner aligns with our goal of maintaining high code quality, robust test coverage, and consistent cross-browser compatibility throughout the development lifecycle.
-   + Convenient Coverage Reporting: By using the --coverage flag with Web Test Runner, we can easily collect code coverage metrics during our test runs. This helps us identify areas of our codebase that require more testing and ensures comprehensive test coverage.
-   + Interactive Watch Mode: The --watch mode provided by Web Test Runner is invaluable during development. It automatically re-runs tests whenever we make changes to our codebase, allowing for rapid iteration and immediate feedback on test results.
-- @vaadin/router has been opted to create a SPA with its routes.
-- I chose Rollup for bundling my JavaScript modules because it is the default scaffolding tool recommended by Open WC.
-- I chose prettier for code format.
-- I have used to integrate Prettier into the project to maintain a unified coding style effortlessly.
-- In this project i have used custom properties to manage our CSS more effectively.
-   + By defining values such as colors, spacing, and font sizes in one place, we can easily update our styles throughout the entire project. For example, changing the primary color only requires an update in a single location, which automatically propagates throughout the application.
+# Características
 
-# Specific decisions
+- **Interfaz Intuitiva:** Una interfaz de usuario limpia y fácil de navegar.
+- **Niveles de Dificultad:** Tres niveles de dificultad para adaptarse a jugadores de todas las edades y habilidades:
+  + **Fácil:** 10 segundos para recordar y elegir el número (10 puntos).
+  + **Medio:** 5 segundos para recordar y elegir el número (20 puntos).
+  + **Difícil:** 2 segundos para recordar y elegir el número (30 puntos).
+- **Sistema de Puntuación:** Un sistema de puntuación que permite a los jugadores seguir su rendimiento y competir con amigos.
 
-- Persistent Data Management:
-   UserState is employed to store and retrieve critical data such as the player's name and score across different game sessions.
-   This ensures that important player data persists even when the game is refreshed or navigated away from, providing a seamless user experience.
+# Tecnología
+- He utilizado **lit-element** para crear componentes web, ya que es una biblioteca que simplifica la creación de componentes web.
+- **Husky** se ha utilizado para ejecutar prettier y el linter antes de los commits y los test antes de un push para evitar subir test fallidos y mantener la calidad del código.
+- He usado **Web Test Runner** para los tests. Usar Web Test Runner se alinea con nuestro objetivo de mantener una calidad de código alta y una cobertura de tests robusta.
+  + Usando --coverage con Web Test Runner, podemos recopilar fácilmente métricas de cobertura de código durante nuestras ejecuciones de prueba. Esto nos ayuda a identificar áreas de nuestro código que requieren más tests y asegura una cobertura de tests completa.
+  + El modo --watch proporcionado por Web Test Runner vuelve a ejecutar las tests automáticamente cuando realizamos cambios en nuestro código, permitiendo una iteración rápida y retroalimentación inmediata sobre los resultados de los tests.
+- He optado por **@vaadin/router** para crear una SPA con sus rutas.
+- Elegí **Rollup** para empaquetar mis módulos JavaScript porque es la herramienta de creación predeterminada recomendada por Open WC.
+- He integrado **Prettier** en el proyecto para mantener un estilo de código unificado.
+- En este proyecto he utilizado **custom properties** para gestionar nuestro CSS de manera más efectiva.
+  + Al definir valores como colores, espaciado y tamaños de fuente en un solo lugar, podemos actualizar fácilmente nuestros estilos en todo el proyecto. Por ejemplo, cambiar el --primary-color solo requiere una actualización en una ubicación, que se propaga automáticamente en toda la aplicación.
 
-- Gameplay Flow
-   The core gameplay mechanics revolve around revealing and memorizing numbers. Here’s how the game orchestrates these actions:
 
-  1.- Start and Reset Game:
-    startGame() initializes a new game session by resetting game state variables (showButtons, showNumbers, selectedNumbers, choice, isPlaying) and triggering the display of interactive game elements.
-    Ensures each game session starts with a clean slate, providing consistent gameplay initiation and preparing the game environment for player interaction.
+# Decisiones específicas
 
-  2.- Number Revelation and Memorization:
-    hideNumbers() randomly selects a number from revealedNumbers after a specified hideTimeout, toggling visibility (showNumbers) to challenge player memory.
-    Tests and enhances player memory retention by briefly displaying numbers before hiding them, prompting players to recall and select the correct number during gameplay.
+- **Persistent data management:**
+   `UserState` se emplea para almacenar y recuperar datos como el nombre del jugador y la puntuación en diferentes sesiones de juego.
+   Esto asegura que los datos importantes del jugador persistan incluso cuando se actualiza el juego o se navega fuera de él, proporcionando una experiencia de usuario continua.
 
-  3.-Score Calculation and Management:
-    playRound() evaluates player input (choice) against the targetNumber, adjusting the player’s score (scoreToSum) based on correct selections.
-    Provides immediate feedback to players on their performance, reinforcing gameplay objectives and rewarding correct responses to maintain engagement and motivation.
+- **Flujo del juego**
+   Las mecánicas centrales del juego giran en torno a revelar y memorizar números. Así es como hemos realizado estas acciones:
 
-- Modular HTML Structure
+  1. **Inicio y reinicio del juego:**
+    `startGame()` inicializa una nueva sesión de juego reiniciando las variables de estado del juego (showButtons, showNumbers, selectedNumbers, choice, isPlaying) y activando la visualización de los elementos interactivos del juego (Cartas).
+    Asegura que cada sesión de juego comience con una pantalla limpia, proporcionando una iniciación consistente del juego y preparando el entorno del juego para la interacción del jugador.
+
+  2. **Revelación de cartas y memorización de números:**
+    `hideNumbers()` selecciona aleatoriamente un número de los 9 que hay en pantalla (targetNumber) y tras el periodo de tiempo especificado, los oculta.
+
+  3. **Cálculo y gestión de puntuación:**
+    `playRound()` evalúa la elección del jugador (choice) contra el targetNumber, ajustando la puntuación del jugador (scoreToSum) en función de las selecciones correctas.
+    Además suma la puntuación mostrandola al momento en pantalla.
+
+
+- **Estructura modular de HTML**
   
-  1.- renderHeader():
-    Separates the rendering of the game header, which includes player information and difficulty selection.
-    By encapsulating the header rendering in a dedicated function, renderHeader(), the main render() function remains focused on assembling the entire game UI. This separation improves code organization and clarity, making it easier to manage and update header-related components independently.
+  1. **renderHeader():**
 
-  2.- renderButtons():
-    Handles the rendering of game buttons that reveal numbers and allow player interaction.
-    Abstracts the button rendering logic into a separate function, renderButtons(), to isolate the presentation logic from the main game structure. This promotes code modularity and simplifies maintenance, especially when dealing with complex button interactions and styling.
+    Separa el renderizado del encabezado del juego, que incluye información del jugador y la selección de dificultad.
+    Al encapsular el renderizado del encabezado en una función dedicada, `renderHeader()`, la función principal render() permanece enfocada en la interfaz del juego. Esta separación mejora la organización y claridad del código, facilitando la gestión y actualización de componentes relacionados con el encabezado de forma independiente.
 
-  3.-getMessage() Function:
-    Dynamically generates messages based on game state (e.g., game start prompt, memorization phase, target number display).
-    Centralizes the logic for displaying game messages within getMessage(), ensuring consistent and contextual messaging throughout different game phases. This separation of concerns enhances code readability and facilitates quick updates to game messaging without altering other UI components.
+  2. **renderButtons():**
 
-- Not Separating Game Logic into a Separate Component
-    In the Game View, the decision not to separate the game logic into a separate component was based on the understanding that the game's specific logic and functionality are tightly coupled with the current view and are unlikely to be reused elsewhere.
+    Maneja el renderizado de los botones del juego que revelan números y permiten la interacción del jugador.
+    Abstrae la lógica de renderizado de botones en una función separada, `renderButtons()`, para aislar la lógica de presentación de la estructura principal del juego. Esto promueve la modularidad del código y simplifica el mantenimiento, especialmente al tratar con interacciones complejas de botones y estilización.
+
+  3. **getMessage():**
+
+    Genera dinámicamente mensajes basados en el estado del juego (por ejemplo, mensaje de inicio del juego, fase de memorización, visualización del número objetivo).
+    Centraliza la lógica para mostrar mensajes del juego dentro de `getMessage()`, asegurando unos mensajes consistentes y contextuales a lo largo de las diferentes fases del juego. Esta separación de responsabilidades mejora la legibilidad del código y facilita actualizaciones rápidas de los mensajes del juego sin alterar otros componentes de la interfaz.
+
+
+
+- **Lógica de juego en la vista game:**
+
+    En la vista del Juego, la decisión de no separar la lógica del juego en un componente separado se basa en la comprensión de que la lógica y funcionalidad específicas del juego están estrechamente acopladas con la vista actual y es poco probable que se reutilicen en otros lugares.
 
 
 # Quickstart
 
-To get started with the Memory game:
+Para comenzar con Memory Cards:
 
-1. **Clone the repository:**
+1. **Clona el repositorio:**
 
     ```bash
     git clone https://github.com/gonzalohernando19/memory.git
     cd memory-app
     ```
 
-2. **Install dependencies:**
+2. **Instala las dependencias:**
 
     ```bash
     npm install
     ```
 
-3. **Run the application:**
+3. **Ejecuta la aplicación:**
 
     ```bash
     npm start
     ```
 
-4. **Open the application in your browser:**
+4. **Abre la aplicación en tu navegador:**
 
-    Navigate to [http://localhost:8000/](http://localhost:8000/)
+    Navega a [http://localhost:8000/](http://localhost:8000/)
 
 ## Scripts
 
@@ -98,22 +106,23 @@ To get started with the Memory game:
 - `lint`: Runs the linter for your project.
 - `format`: Fixes linting and formatting errors.
 
-## Production
+## Producción
 
-1. **Build the project:**
+1. **Cosntruye el proyecto:**
 
     ```bash
     npm run build
     ```
 
-2. **Publish the `public` folder:**
+2. **Publica la carpeta `public`:**
 
-    Deploy the contents of the `public` directory to your hosting provider or server.
+   Despliega el contenido del directorio `public` a tu proveedor de hosting o servidor. 
 
-## Contributing
+## Constribuciones
 
-Contributions are welcome! Please fork the repository and create a pull request with your changes. To ensure your contribution aligns with project standards:
+¡Las contribuciones son bienvenidas! Por favor, haz un fork del repositorio y crea una pull request con tus cambios. Para asegurar que tu contribución se alinee con los estándares del proyecto:
 
-- Follow the coding style and conventions used in the project.
-- Provide clear and detailed descriptions of your changes in the pull request.
+- Sigue el estilo de código y las convenciones usadas en el proyecto.
+- Proporciona descripciones claras y detalladas de tus cambios en la pull request.
+
 
