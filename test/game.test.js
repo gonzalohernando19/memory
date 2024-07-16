@@ -12,7 +12,7 @@ describe('Game component', () => {
   it('renders the header with the player name', async () => {
     const header = el.shadowRoot.querySelector('memory-header');
     expect(header).to.exist;
-    el.playerName = 'Test Player';
+    el.playerName = 'Test';
     await el.updateComplete;
 
     const playerNameElement = el.shadowRoot.querySelector('memory-header span');
