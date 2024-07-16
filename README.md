@@ -20,6 +20,8 @@ Memory Game is an interactive game designed to test and improve your visual memo
 - I chose Rollup for bundling my JavaScript modules because it is the default scaffolding tool recommended by Open WC.
 - I chose prettier for code format.
 - I have used to integrate Prettier into the project to maintain a unified coding style effortlessly.
+- In this project i have used custom properties to manage our CSS more effectively.
+   + By defining values such as colors, spacing, and font sizes in one place, we can easily update our styles throughout the entire project. For example, changing the primary color only requires an update in a single location, which automatically propagates throughout the application.
 
 # Specific decisions
 
