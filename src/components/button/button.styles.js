@@ -44,7 +44,7 @@ export default css`
   @media (hover: none) {
     button:hover {
       background-color: var(--button-background-color);
-      pointer-events: none;
+      cursor: default;
     }
   }
 `;
