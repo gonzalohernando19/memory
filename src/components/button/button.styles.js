@@ -40,4 +40,11 @@ export default css`
     opacity: 0.5;
     pointer-events: none;
   }
+
+  @media (hover: none) {
+    button:hover {
+      background-color: var(--button-background-color);
+      pointer-events: none;
+    }
+  }
 `;
